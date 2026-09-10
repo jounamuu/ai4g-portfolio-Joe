@@ -4,9 +4,10 @@
 
 ## 1. Homework & workshop assignments -> [`homework/`](homework/)
 
-**What was the assignment?** Build a web app that helps someone learn something.
+**What was the assignment?** Build a web app that helps someone learn something. 
 
-**What did I hand in?** the links of the web app and the presentation
+**What did I hand in?** the links of the web app and the presentation: https://socratic-critical-th-o5v7.bolt.host/   
+https://drive.google.com/file/d/1f3rOB-w5mavYYcD8OUEKgs0h-xAqHvtV/view?usp=sharing
 _List the files, or link to them. Notebook exports, screenshots, scripts._
 
 **What did I find difficult, and how did I solve it?** As i was motivated by the theme of the webapp and helped by bolt, the ia wich i used to create it, the most difficult for me was the presentation but also helpful to put all the purposes of the web written down. 
