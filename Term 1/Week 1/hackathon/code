@@ -1,0 +1,280 @@
+import { useCallback, useState } from 'react';
+import { Settings as SettingsIcon } from 'lucide-react';
+import type { Phase, DialogueMessage, TrackedPremise, ApiKeyConfig, CompletionRecord } from '@/types';
+import { ESSENTIAL_QUESTIONS, QUESTION_MAP } from '@/data/questions';
+import { loadCompletions, saveCompletion, loadApiKey, saveApiKey } from '@/lib/storage';
+import { generateSocraticReply } from '@/lib/engine';
+import { Stoa } from '@/components/Stoa';
+import { ThesisPhase } from '@/components/ThesisPhase';
+import { ExaminationArena } from '@/components/ExaminationArena';
+import { ScrollOfEpiphany } from '@/components/ScrollOfEpiphany';
+import { SettingsModal } from '@/components/SettingsModal';
+
+function uid(): string {
+  return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+}
+
+export default function App() {
+  const [phase, setPhase] = useState<Phase>('stoa');
+  const [activeQuestionId, setActiveQuestionId] = useState<string | null>(null);
+  const [thesis, setThesis] = useState('');
+  const [messages, setMessages] = useState<DialogueMessage[]>([]);
+  const [currentRound, setCurrentRound] = useState(0);
+  const [premises, setPremises] = useState<TrackedPremise[]>([]);
+  const [aporiaLevel, setAporiaLevel] = useState(0);
+  const [finalStance, setFinalStance] = useState('');
+  const [isThinking, setIsThinking] = useState(false);
+  const [completions, setCompletions] = useState<CompletionRecord[]>(loadCompletions);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [apiKeyConfig, setApiKeyConfig] = useState<ApiKeyConfig>(loadApiKey);
+
+  const activeQuestion = activeQuestionId ? QUESTION_MAP[activeQuestionId] : null;
+
+  const handleSelectQuestion = (questionId: string) => {
+    setActiveQuestionId(questionId);
+    setThesis('');
+    setMessages([]);
+    setCurrentRound(0);
+    setPremises([]);
+    setAporiaLevel(0);
+    setFinalStance('');
+    setPhase('thesis');
+  };
+
+  const handleThesisSubmit = (submittedThesis: string) => {
+    setThesis(submittedThesis);
+    setPhase('examination');
+    setCurrentRound(0);
+    setMessages([]);
+    setPremises([]);
+    setAporiaLevel(0);
+
+    // Socrates opens the examination
+    setIsThinking(true);
+    const question = QUESTION_MAP[activeQuestionId!];
+    setTimeout(async () => {
+      const result = await generateSocraticReply(
+        activeQuestionId!,
+        0,
+        submittedThesis,
+        [],
+        apiKeyConfig,
+      );
+      const openingMessage: DialogueMessage = {
+        id: uid(),
+        speaker: 'socrates',
+        text: result.reply,
+        round: 0,
+      };
+      setMessages([openingMessage]);
+      setPremises([{ round: 0, premise: result.premise, status: 'questioned' }]);
+      setAporiaLevel(15);
+      setIsThinking(false);
+    }, 800);
+  };
+
+  const handleSend = useCallback(
+    async (text: string) => {
+      if (!activeQuestionId || isThinking) return;
+
+      const question = QUESTION_MAP[activeQuestionId];
+      const userMessage: DialogueMessage = {
+        id: uid(),
+        speaker: 'user',
+        text,
+        round: currentRound,
+      };
+      setMessages((prev) => [...prev, userMessage]);
+      setIsThinking(true);
+
+      // Determine the next round
+      const nextRound = Math.min(currentRound + 1, question.rounds.length - 1);
+
+      // Build message history for the engine
+      const history = [...messages, userMessage].map((m) => ({
+        speaker: m.speaker,
+        text: m.text,
+      }));
+
+      setTimeout(async () => {
+        const result = await generateSocraticReply(
+          activeQuestionId,
+          nextRound,
+          thesis,
+          history,
+          apiKeyConfig,
+        );
+
+        const socratesMessage: DialogueMessage = {
+          id: uid(),
+          speaker: 'socrates',
+          text: result.reply,
+          round: nextRound,
+        };
+
+        setMessages((prev) => [...prev, socratesMessage]);
+
+        // Track the new premise
+        setPremises((prev) => {
+          // Update previous premises based on user's response
+          const updated = prev.map((p) => {
+            if (p.round === currentRound) {
+              const lower = text.toLowerCase();
+              if (lower.includes('concede') || lower.includes('i see the contradiction')) {
+                return { ...p, status: 'conceded' as const };
+              }
+              if (lower.includes('define') || lower.includes('refine') || lower.includes('but')) {
+                return { ...p, status: 'refined' as const };
+              }
+            }
+            return p;
+          });
+
+          // Add new premise if advancing to a new round
+          if (nextRound > currentRound) {
+            return [...updated, { round: nextRound, premise: result.premise, status: 'questioned' as const }];
+          }
+          return updated;
+        });
+
+        // Advance round and increase aporia
+        if (nextRound > currentRound) {
+          setCurrentRound(nextRound);
+        }
+        setAporiaLevel((prev) => Math.min(prev + 22, 100));
+
+        setIsThinking(false);
+      }, 1000);
+    },
+    [activeQuestionId, isThinking, currentRound, messages, thesis, apiKeyConfig],
+  );
+
+  const handleConclude = () => {
+    if (!activeQuestion) return;
+
+    // Generate the final stance based on the dialogue
+    const userMessages = messages.filter((m) => m.speaker === 'user');
+    const lastUserMessage = userMessages[userMessages.length - 1];
+
+    // Build a synthesis: combine the takeaway with the user's final position
+    const stance = lastUserMessage
+      ? `Through the examination, your stance evolved. You began with: "${thesis}". After ${activeQuestion.rounds.length} rounds of cross-examination, your final position: "${lastUserMessage.text}". ${activeQuestion.takeaway}`
+      : activeQuestion.takeaway;
+
+    setFinalStance(stance);
+    setPhase('epiphany');
+  };
+
+  const handleExport = (reflectionNote: string) => {
+    if (!activeQuestion) return;
+
+    const record: CompletionRecord = {
+      questionId: activeQuestion.id,
+      questionTitle: activeQuestion.question,
+      initialThesis: thesis,
+      finalStance,
+      aporiaLevel,
+      completedAt: new Date().toISOString(),
+      reflectionNote,
+    };
+
+    saveCompletion(record);
+    setCompletions(loadCompletions());
+  };
+
+  const handleBackToStoa = () => {
+    setPhase('stoa');
+    setActiveQuestionId(null);
+    setThesis('');
+    setMessages([]);
+    setCurrentRound(0);
+    setPremises([]);
+    setAporiaLevel(0);
+    setFinalStance('');
+  };
+
+  const handleSaveSettings = (config: ApiKeyConfig) => {
+    saveApiKey(config);
+    setApiKeyConfig(config);
+  };
+
+  return (
+    <div className="relative min-h-screen">
+      {/* Settings button — always visible */}
+      {phase === 'stoa' && (
+        <button
+          onClick={() => setSettingsOpen(true)}
+          className="fixed top-4 right-4 z-40 w-10 h-10 rounded-full marble-tablet flex items-center justify-center
+            hover:scale-110 transition-transform"
+          aria-label="Settings"
+        >
+          <SettingsIcon className="w-5 h-5 text-ink-700/70" strokeWidth={1.5} />
+        </button>
+      )}
+
+      {/* Settings button on other phases */}
+      {phase !== 'stoa' && (
+        <button
+          onClick={() => setSettingsOpen(true)}
+          className="fixed bottom-4 right-4 z-40 w-10 h-10 rounded-full marble-tablet flex items-center justify-center
+            hover:scale-110 transition-transform"
+          aria-label="Settings"
+        >
+          <SettingsIcon className="w-5 h-5 text-ink-700/70" strokeWidth={1.5} />
+        </button>
+      )}
+
+      {/* Phase routing */}
+      {phase === 'stoa' && (
+        <Stoa
+          questions={ESSENTIAL_QUESTIONS}
+          completions={completions}
+          onSelect={handleSelectQuestion}
+        />
+      )}
+
+      {phase === 'thesis' && activeQuestion && (
+        <ThesisPhase
+          question={activeQuestion}
+          onSubmit={handleThesisSubmit}
+          onBack={handleBackToStoa}
+        />
+      )}
+
+      {phase === 'examination' && activeQuestion && (
+        <ExaminationArena
+          question={activeQuestion}
+          thesis={thesis}
+          messages={messages}
+          currentRound={currentRound}
+          premises={premises}
+          aporiaLevel={aporiaLevel}
+          isThinking={isThinking}
+          onSend={handleSend}
+          onConclude={handleConclude}
+          onBack={handleBackToStoa}
+        />
+      )}
+
+      {phase === 'epiphany' && activeQuestion && (
+        <ScrollOfEpiphany
+          question={activeQuestion}
+          thesis={thesis}
+          messages={messages}
+          premises={premises}
+          aporiaLevel={aporiaLevel}
+          finalStance={finalStance}
+          onBack={handleBackToStoa}
+          onExport={handleExport}
+        />
+      )}
+
+      <SettingsModal
+        isOpen={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        config={apiKeyConfig}
+        onSave={handleSaveSettings}
+      />
+    </div>
+  );
+}
