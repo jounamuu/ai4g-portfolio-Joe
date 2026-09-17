@@ -74,7 +74,6 @@ _Every hackathon requires this. One honest paragraph beats three vague ones._
 
 **What is the most important thing I learned this week?** how n8n works because i've tried months ago alone in home with youtube tutorials and i didn't figure it out at all 
 
-**Where does this connect to "AI for Good"?** Where this really connects to "AI for Good" is making healthy habits accessible to everyday people who can’t afford a private gym coach.
+**Where does this connect to "AI for Good"?** Where this really connects to "AI for Good" is making healthy habits accessible to everyday people who can't afford a private gym coach.
 
-Personal trainers are expensive, so a lot of students or people on a tight budget end up working out with zero guidance and getting hurt. By putting this on Telegram, anyone with a cheap phone gets free, basic support to stay active, track their workouts safely, and learn how to train without burning out. It’s a simple way to take tech and use it to help people build long-term healthy routines, which directly supports UN Sustainable Development Goal 3: Good Health and Well-being.
-_One concrete link to ethics, sustainability or social impact._
+Personal trainers are expensive, so a lot of students or people on a tight budget end up working out with zero guidance and getting hurt. By putting this on Telegram, anyone with a phone gets free, basic support to stay active, track their workouts safely, and learn how to train without burning out. It is a simple way to take tech and use it to help people build long-term healthy routines, which directly supports UN Sustainable Development Goal 3: Good Health and Well-being.
