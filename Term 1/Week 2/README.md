@@ -39,7 +39,7 @@ _Name a real, specific user. "Everyone" is not a user._
 _Two or three sentences. What can a user actually do with it?_ they can use it as a personal trainer 
 
 **Link to the live thing (if any):** json and demo (presentation) on /hackaton
-_Deployed URL, workflow export, video demo - whatever proves it works._
+_Deployed URL, workflow export, video demo - whatever proves it works._ https://docs.google.com/presentation/d/1tZNzUv1fbznCdjFCXM5nkRDLBZ6FMrDg9_HdX4xR5kM/edit?usp=sharing
 
 **How do I run it?** you need to execute worflow manually inside n8n and then you need to have the telegram bot we created: https://t.me/PersonalTrainer63919_bot
 _Short instructions so someone else can start it._
