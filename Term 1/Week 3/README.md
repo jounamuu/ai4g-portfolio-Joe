@@ -36,7 +36,7 @@ Google Gemini API (multimodal LLM) with Streamlit
 **SDG we had to address:**
 10 — Reduced Inequalities
 
-**What problem does it solve, and for whom?**
+**What problem does it solve, and for whom?** "Around 2.5 million people (about 1 in 6 adults, or 16%) struggle to read and understand official documents, administrative letters, or government forms."
 Official letters, tax demands, and legal notices use very difficult words ("legalese"). Normal citizens—especially immigrants with language barriers, elderly people, and young adults living on their own—cannot understand them. Because of this, they get stressed, miss important deadlines, or end up paying unfair fines. ClearBureaucracy translates these complicated letters into plain, simple everyday words. (Who is not the user: lawyers or companies who already know how the legal system works).
 
 **What did you build?**
