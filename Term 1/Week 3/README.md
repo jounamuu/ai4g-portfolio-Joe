@@ -28,7 +28,7 @@ https://docs.google.com/presentation/d/1snY8xMvGVIenZx-jlOGN25bZWKwUs-iX04kaqMtv
 ClearBureaucracy
 
 **My pair partner:**
-[Write your partner's name here]
+Murst
 
 **Tool we had to use:**
 Google Gemini API (multimodal LLM) with Streamlit
@@ -60,9 +60,9 @@ https://ai4g-portfolio-joe-uk94stzydd4cc5clnwbd72.streamlit.app
 The biggest risk is AI error ("hallucination"): if the AI reads a deadline or a bank number wrong, the user could miss a real legal cutoff date and receive a financial penalty. There is also a privacy risk because people upload letters with their full name, home address, or ID numbers. To reduce these risks, we put a clear warning on the website saying this tool is only an informal guide and not a licensed lawyer, and we tell users not to upload sensitive personal IDs. In the future, we want to add an automatic blur tool to hide personal data before the AI reads the document.
 
 ### Checklist
-- [yes ] Prototype code (or export / workflow file) is in `hackathon/`
-- [yes ] This week's slides are in `hackathon/`
-- [ yes if streamlit wants to] The prototype actually runs, and I wrote down how to run it
+- [yes] Prototype code (or export / workflow file) is in `hackathon/`
+- [yes] This week's slides are in `hackathon/`
+- [yes] The prototype actually runs, and I wrote down how to run it
 - [yes] Ethical reflection written above
 
 ---
