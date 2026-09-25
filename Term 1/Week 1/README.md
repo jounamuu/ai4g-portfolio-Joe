@@ -62,11 +62,11 @@ _Every hackathon requires this. One honest paragraph beats three vague ones._
 
 *Only fill this in for the week your group was selected to present. You need at least **one** of these across the whole term.*
 
-- [ ] My group presented in this week
+- [yes ] My group presented in this week
 - [yes ] Slides are in `presentation/`
 - [yes ] Proof of the live demo is in `presentation/` (recording, screenshots, or link)
 
-**How did it go? What would I do differently next time?** It went well, bouth of us were motivated with the idea and beleived in it. It was really easy with the help of bolt but if there's something we would do different is the workflow so it would have been better to make everything togheter and not work apart. 
+**How did it go? What would I do differently next time?** It went well, bouth of us were motivated with the idea and beleived in it but we made some mistakes in the presnetation refeering to ethicals and who's for. We will redo that so its clearer what we do better than other similars and who and how many people we help. 
 
 ---
 
