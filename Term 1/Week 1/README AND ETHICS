@@ -1,0 +1,167 @@
+# ArtLab — Discover Art. Understand It. Create Something New.
+
+## Hackathon Project Summary
+
+**Project title:**  
+ArtLab — Discover Art. Understand It. Create Something New.
+
+**My pair partner:**  
+None (is redo)
+
+**Tool we had to use:**  
+Bolt.new
+
+**SDG we had to address:**  
+**SDG 4 — Quality Education**, particularly Target 4.5, which focuses on equal access to education, and Target 4.1, which focuses on quality education. ArtLab aims to make art learning more accessible through free, self-paced educational resources.
+
+**What problem does it solve, and for whom?**
+
+ArtLab addresses the lack of accessible and engaging opportunities to learn about art outside formal education. Its primary target audience is **young people aged 14–18 who are interested in art but may not have access to extracurricular art classes or individual guidance**.
+
+The proposed first pilot would involve **10–20 students aged 14–18**, allowing us to evaluate whether the application is understandable, engaging, and useful. This is a proposed testing group, not a claim about the total number of people experiencing this problem.
+
+**What did you build?**
+
+ArtLab is an interactive art education web application where users can explore artistic movements and artworks, learn about visual techniques through short lessons and quizzes, and practise their creativity with guided challenges. Users can also record their ideas in a personal creative journal and track their learning progress.
+
+**Link to the live thing (if any):**  
+[Add the deployed ArtLab URL when available]
+
+**How do I run it?** Enter this link: https://artlab-web-app-stey.bolt.host
+
+See the setup instructions below. These commands assume the generated project uses the standard npm scripts.
+
+
+
+**Ethical reflection — what are the risks of your tool? Who could it harm?**
+
+ArtLab is intended to make art education more accessible, but it has limitations. Its educational content may not suit every learning style or accessibility need, and users with limited internet or device access may still be excluded. Incorrect artwork information, missing image credits, or copyrighted images used without appropriate permission could misinform users or infringe artists' rights. Because the target audience includes minors, collecting unnecessary personal information or exposing saved creative work could also create privacy risks. The prototype therefore aims to minimise data collection, avoid mandatory accounts, and keep progress and journal entries in local browser storage. However, local storage on a shared device is not completely private. ArtLab has not yet demonstrated measurable improvements in learning, so it would need to be tested with students before making claims about its educational impact.
+
+---
+
+## 1. The Problem
+
+Art education can be difficult to access outside formal education. Not everyone has the opportunity to attend art classes, visit museums regularly, or receive guidance when exploring creative interests.
+
+Young people encounter visual art every day through films, illustrations, digital media, street art, and social media, but may lack the resources to understand the techniques, ideas, and historical contexts behind it.
+
+ArtLab aims to make learning about art more accessible, engaging, and practical.
+
+## 2. Our Solution
+
+ArtLab combines art discovery, interactive learning, and creative experimentation in one accessible web application.
+
+Instead of simply presenting information about artists and artworks, it encourages users to observe, interpret, ask questions, and apply what they learn through creative challenges.
+
+### Target Audience
+
+Young people aged **14–18**, particularly those interested in art who want to explore creative subjects independently and at their own pace.
+
+### Main Features
+
+**Discover Art**
+- Explore artistic movements, including Surrealism, Impressionism, Cubism, Expressionism, Street Art, and Digital Art.
+- Discover artists and artworks.
+- Learn about artistic techniques, historical contexts, and visual characteristics.
+- Explore individual artworks through descriptions and observation questions.
+
+**Learn Through Interactive Lessons**
+- Study art concepts through short, accessible lessons.
+- Explore colour theory, composition, artistic movements, and visual storytelling.
+- Complete quizzes and receive feedback.
+- Review learning summaries and track completed lessons.
+
+**Create Through Challenges**
+- Complete creative challenges inspired by different artistic movements.
+- Experiment with colour, composition, symbolism, and visual storytelling.
+- Record creative ideas and reflections in a personal journal.
+- Save and revisit creative projects.
+
+**Track Your Progress**
+- Keep track of completed lessons and challenges.
+- Review quiz results.
+- Discover which artistic movements have been explored.
+- Maintain a personal record of creative projects.
+
+## 3. Connection to Sustainable Development Goal 4
+
+ArtLab contributes to the objectives of **SDG 4: Quality Education**, which aims to ensure inclusive and equitable quality education and promote lifelong learning opportunities for all.
+
+The project particularly relates to:
+
+- **Target 4.1:** Supporting learning opportunities through accessible educational resources.
+- **Target 4.5:** Working towards more equitable access to learning opportunities, regardless of personal or socioeconomic circumstances.
+
+ArtLab focuses on independent learning, creative expression, and visual literacy. Its goal is to reduce some barriers to exploring art by providing educational content through a web application.
+
+These are intended benefits, not proven outcomes. Further testing with students would be needed to evaluate the platform's educational effectiveness and accessibility.
+
+## 4. Technology
+
+The project is designed as a web application using:
+
+- **React** — building the user interface.
+- **TypeScript** — improving code reliability and maintainability.
+- **Tailwind CSS** — styling and responsive layouts.
+- **Browser local storage** — saving learning progress and journal entries locally.
+
+The initial version is designed to operate without requiring a paid AI service, an external database, or user registration.
+
+The final technology stack and implemented features should be verified against the actual application.
+
+## 5. Accesibility and 6 ## Usuability
+
+ArtLab aims to make art education approachable for people with different levels of artistic knowledge.
+
+The project prioritises:
+- Clear and accessible explanations.
+- Self-paced learning.
+- Responsive layouts for different screen sizes.
+- Interactive activities that encourage independent thinking.
+- Educational content that does not require previous art knowledge.
+- Opportunities to learn through observation, interpretation, and experimentation.
+
+Accessibility and usability should be tested with different users before making claims about how effectively the platform serves different learning needs.
+
+## 7. Privacy and Ethical Considerations
+
+ArtLab is intended for an audience that includes minors, so privacy and responsible design are important considerations.
+
+The intended approach includes:
+- No mandatory account creation.
+- No unnecessary collection of personal information.
+- Local storage for progress and personal journal entries.
+- No public social feed or automatic publication of users' creations.
+- Careful consideration of artwork sources, copyright, and image attribution.
+
+Browser local storage is not a substitute for secure storage, and information saved on a shared device may be accessible to other users of that browser. Users should avoid recording sensitive personal information in their journal.
+
+Artwork images and metadata should be checked for accuracy and appropriate usage permissions.
+
+## 8. Limitations
+
+ArtLab is an educational prototype, not a replacement for professional art education or a teacher.
+
+Its current scope focuses on discovering art, learning foundational concepts, and completing creative challenges.
+
+The prototype does not automatically demonstrate that users improve their artistic skills. Its educational value, accessibility, and usability would need to be evaluated through testing with the target audience.
+
+Progress stored locally may not synchronise between devices.
+
+## 9. Future Improvements
+
+Potential future developments include:
+- Additional artistic movements, artists, and artworks.
+- More interactive visual exercises.
+- A wider range of creative challenges.
+- Multilingual educational content.
+- Accessibility testing and improvements.
+- Feedback from art teachers and students.
+- Optional AI-assisted explanations or creative guidance, implemented with appropriate privacy and safety measures.
+
+## 10. Project Status
+
+Developed as a prototype for the AI for Good Hackathon at The Hague University of Applied Sciences.
+
+The project aims to demonstrate how accessible digital tools can encourage art education, independent learning, and creative exploration.
+
